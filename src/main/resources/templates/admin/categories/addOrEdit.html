@@ -20,7 +20,8 @@
                   <form th:action="@{/admin/categories/saveOrUpdate}" method="post" th:object="${category}">
                       <div class="card">
                           <div class="card-header">
-                            <h2>Add new category</h2>
+                            <h2 th:if="${edit == null}">Add new category</h2>
+                            <h2 th:unless="${edit != null}">Edit category</h2>
                           </div>
                           <div class="card-body">
                               <div class="form-group">

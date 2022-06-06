@@ -41,4 +41,6 @@ public interface CategoryService {
 
 	<S extends Category> S save(S entity);
 
+	List<Category> findByNameContaining(String name);
+
 }
