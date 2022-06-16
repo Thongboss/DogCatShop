@@ -108,15 +108,15 @@ public class CategoryController {
 		return "admin/categories/search";
 	}
 	
-	@GetMapping("search/paginated")
+	@GetMapping("searchpaginated")
 	public String search(ModelMap model, @RequestParam(name="name", required = false) String name,
 			@RequestParam("page") Optional<Integer> page,
 			@RequestParam("size") Optional<Integer> size) {
 		
 		int currentPage = page.orElse(1);
-		int pageSize = size.orElse(5);
+		int pageSize = size.orElse(3);
 		
-		Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("name"));
+		Pageable pageable = PageRequest.of(currentPage-1, pageSize, Sort.by("name"));
 		Page<Category> resultPage = null;
 		
 		
@@ -132,8 +132,8 @@ public class CategoryController {
 			int end = Math.min(currentPage + 2, totalPages);
 			
 			if(totalPages > 5) {
-				if(end == totalPages) start = end - 5 ;
-				else if(start == 1) end = start + 5;
+				if(end == totalPages) start = end - 3 ;
+				else if(start == 1) end = start + 3;
 			}
 			List<Integer> pageNumbers = IntStream.rangeClosed(start, end)
 					.boxed()

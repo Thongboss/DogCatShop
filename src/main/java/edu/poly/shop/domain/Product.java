@@ -2,12 +2,17 @@ package edu.poly.shop.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,7 +46,11 @@ public class Product implements Serializable {
 	private Date entereddate;
 	@Column(nullable = false)
 	private short status;
-	@Column(nullable = false)
-	private int categoryId;
-
+	
+	@ManyToOne
+	@JoinColumn(name ="categoryId")
+	private Category category;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private Set<OrderDetail> orderDetails;
 }
