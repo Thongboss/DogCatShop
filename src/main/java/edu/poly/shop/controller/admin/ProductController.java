@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -29,8 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.poly.shop.domain.Category;
 import edu.poly.shop.model.CategoryDto;
-import edu.poly.shop.model.ProductDto;
 import edu.poly.shop.service.CategoryService;
+import edu.poly.shop.model.ProductDto;
 import edu.poly.shop.service.ProductService;
 
 @Controller
@@ -42,6 +41,15 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
+	@ModelAttribute("categories")
+	public List<CategoryDto> getCategories(){
+		return categoryService.findAll().stream().map(item -> {
+			CategoryDto dto = new CategoryDto();
+			BeanUtils.copyProperties(item, dto);
+			return dto;
+		}).toList();
+		
+	}
 	@GetMapping("add")
 	public String add(Model model) {
 		model.addAttribute("product", new ProductDto());
@@ -60,9 +68,6 @@ public class ProductController {
 			model.addAttribute("category", dto);
 			return new ModelAndView("admin/products/addOrEdit", model);
 		}
-//		HttpRequest request;
-//		request.seta
-//		model.addAttribute("edit", "this is edit");
 		model.addAttribute("message", "Category is not existed!");
 		
 		return new ModelAndView("forward:/admin/products", model);
@@ -150,12 +155,3 @@ public class ProductController {
 		return "admin/products/searchpaginated";
 	}
 }
-
-
-
-
-
-
-
-
-
