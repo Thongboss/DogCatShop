@@ -2,6 +2,7 @@ package edu.poly.shop.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -27,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.poly.shop.domain.Category;
+import edu.poly.shop.domain.Product;
 import edu.poly.shop.model.CategoryDto;
 import edu.poly.shop.service.CategoryService;
 import edu.poly.shop.model.ProductDto;
 import edu.poly.shop.service.ProductService;
+import edu.poly.shop.service.StorageService;
 
 @Controller
 @RequestMapping("admin/products")
@@ -41,13 +44,16 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
+	@Autowired
+	StorageService storageService;
+	
 	@ModelAttribute("categories")
 	public List<CategoryDto> getCategories(){
 		return categoryService.findAll().stream().map(item -> {
 			CategoryDto dto = new CategoryDto();
 			BeanUtils.copyProperties(item, dto);
 			return dto;
-		}).toList();
+		}).toList()  ;
 		
 	}
 	@GetMapping("add")
@@ -84,17 +90,30 @@ public class ProductController {
 	}
 	
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") CategoryDto dto, BindingResult result) {
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("product") ProductDto dto, BindingResult result) {
 		if(result.hasErrors()) {
 			return new ModelAndView("/admin/products/addOrEdit");
 		}
-		Category entity = new Category();
+		Product entity = new Product();
 
 		BeanUtils.copyProperties(dto, entity);
+		
+		Category category = new Category();
+		category.setCategoryId(dto.getCategoryId());
+		entity.setCategory(category);
+		
+		if(!dto.getImageFile().isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+			
+			entity.setImage(storageService.getStoragedFilename(dto.getImageFile(), uuString));
+			
+			storageService.store(dto.getImageFile(), entity.getImage());
+		}
 
-		categoryService.save(entity);
+		productService.save(entity);
 
-		model.addAttribute("message", "Category is saved!");
+		model.addAttribute("message", "Product is saved!");
 		return new ModelAndView("forward:/admin/products", model);
 	}
 	
