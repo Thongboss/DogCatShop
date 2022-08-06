@@ -29,54 +29,59 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.poly.shop.domain.Category;
 import edu.poly.shop.model.CategoryDto;
+import edu.poly.shop.model.ProductDto;
 import edu.poly.shop.service.CategoryService;
+import edu.poly.shop.service.ProductService;
 
 @Controller
-@RequestMapping("admin/categories")
-public class CategoryController {
+@RequestMapping("admin/products")
+public class ProductController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	ProductService productService;
+	
 	@GetMapping("add")
 	public String add(Model model) {
-		model.addAttribute("category", new CategoryDto());
+		model.addAttribute("product", new ProductDto());
 		
-		return "admin/categories/addOrEdit";
+		return "admin/products/addOrEdit";
 	}
 	
-	@GetMapping("edit/{categoryId}")
-	public ModelAndView edit(ModelMap model, @PathVariable("categoryId") Long categoryId) {
-		Optional<Category> opt = categoryService.findById(categoryId);
+	@GetMapping("edit/{productId}")
+	public ModelAndView edit(ModelMap model, @PathVariable("productId") Long productId) {
+		Optional<Category> opt = categoryService.findById(productId);
 		CategoryDto dto = new CategoryDto();
 		if(opt.isPresent()) {
 			Category entity = opt.get();
 			BeanUtils.copyProperties(entity, dto);
 			dto.setIsEdit(true);
 			model.addAttribute("category", dto);
-			return new ModelAndView("admin/categories/addOrEdit", model);
+			return new ModelAndView("admin/products/addOrEdit", model);
 		}
 //		HttpRequest request;
 //		request.seta
 //		model.addAttribute("edit", "this is edit");
 		model.addAttribute("message", "Category is not existed!");
 		
-		return new ModelAndView("forward:/admin/categories", model);
+		return new ModelAndView("forward:/admin/products", model);
 	} 
 	
-	@GetMapping("delete/{categoryId}")
-	public ModelAndView delete(ModelMap model, @PathVariable("categoryId") Long categoryId) {
-//		System.out.println(categoryId);
-		categoryService.deleteById(categoryId);
+	@GetMapping("delete/{productId}")
+	public ModelAndView delete(ModelMap model, @PathVariable("productId") Long productId) {
+//		System.out.println(productId);
+		categoryService.deleteById(productId);
 		
 		model.addAttribute("message", "category is deleted!");
 		
-		return new ModelAndView("forward:/admin/categories/search", model);
+		return new ModelAndView("forward:/admin/products/search", model);
 	}
 	
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") CategoryDto dto, BindingResult result) {
 		if(result.hasErrors()) {
-			return new ModelAndView("/admin/categories/addOrEdit");
+			return new ModelAndView("/admin/products/addOrEdit");
 		}
 		Category entity = new Category();
 
@@ -85,14 +90,14 @@ public class CategoryController {
 		categoryService.save(entity);
 
 		model.addAttribute("message", "Category is saved!");
-		return new ModelAndView("forward:/admin/categories", model);
+		return new ModelAndView("forward:/admin/products", model);
 	}
 	
 	@RequestMapping("")
 	public String list(ModelMap model) {
 		List<Category> list = categoryService.findAll();
-		model.addAttribute("categories", list);
-		return "admin/categories/list";
+		model.addAttribute("products", list);
+		return "admin/products/list";
 	}
 	
 	@GetMapping("search")
@@ -103,9 +108,9 @@ public class CategoryController {
 		}else {
 			list = categoryService.findAll();
 		}
-		model.addAttribute("categories", list);
+		model.addAttribute("products", list);
 		
-		return "admin/categories/search";
+		return "admin/products/search";
 	}
 	
 	@GetMapping("searchpaginated")
@@ -142,7 +147,7 @@ public class CategoryController {
 		}
 		model.addAttribute("categoryPage", resultPage);
 		
-		return "admin/categories/searchpaginated";
+		return "admin/products/searchpaginated";
 	}
 }
 
