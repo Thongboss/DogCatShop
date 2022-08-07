@@ -39,7 +39,9 @@ public class CategoryController {
 	
 	@GetMapping("add")
 	public String add(Model model) {
-		model.addAttribute("category", new CategoryDto());
+		CategoryDto cate = new CategoryDto();
+		cate.setIsEdit(false);
+		model.addAttribute("category", cate);
 		
 		return "admin/categories/addOrEdit";
 	}
