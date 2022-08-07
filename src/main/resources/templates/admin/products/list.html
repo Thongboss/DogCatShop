@@ -46,11 +46,40 @@
                                   <td>
                                     <a th:href="@{'/admin/products/view/' + ${item.productId}}" class="btn btn-outline-info"><i class="fas fa-info"></i></a>
                                     <a th:href="@{'/admin/products/edit/' + ${item.productId}}" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                                    <a th:href="@{'/admin/products/delete/' + ${item.productId}}" class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a>
+                                    <a th:href="@{'/admin/products/delete/' + ${item.productId}}"
+                                       onclick="return confirm('Are you sure you want to delete the product ?');"
+                                    class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a>
                                   </td>
                                 </tr>
                               </tbody>
                           </table>
+                          <script>
+                            function showConfirModalDialog(id,name) {
+                              $('#productName').text(name);
+                              $('#yesOption').attr('href', '/admin/products/delete/' + id);
+                              $('#confirmationId').modal('show');
+                            }
+                          </script>
+                          <!-- Modal -->
+                          <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  Do you want delete "<span id="productName"></span>" ?
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                  <a id="yesOption" type="button" class="btn btn-danger">Yes</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                       </div>
                       <div class="card-footer text-muted">
                         <nav aria-label="Page navigation">

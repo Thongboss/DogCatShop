@@ -1,5 +1,7 @@
 package edu.poly.shop.model;
 
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class AccountDto {
+	@NotEmpty
 	private String username;
+	@NotEmpty
 	private String password;
+	
+	private Boolean isEdit = false;
 }

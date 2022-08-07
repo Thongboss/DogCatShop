@@ -56,7 +56,9 @@ public class ProductController {
 	public List<CategoryDto> getCategories(){
 		return categoryService.findAll().stream().map(item -> {
 			CategoryDto dto = new CategoryDto();
+			
 			BeanUtils.copyProperties(item, dto);
+			
 			return dto;
 		}).toList();
 		
