@@ -59,8 +59,8 @@ layout:decorate="~{admin/dashboardLayout.html}">
                           }
                         }
                       </script>
-                      <img id="image" th:src="${product.image != null ? '/admin/products/images/' + product.image : '/images/noimage.png'}" 
-                      src="images/no-image.jpg" width="90%" class="img-fluid" alt="">
+                      <img id="image" th:src="${product.image != null ? '/admin/products/images/' + product.image : 'https://tse1.mm.bing.net/th?id=OIP.WyCZfDJICgOsDqaKddKWXQHaHa&pid=Api&P=0'}" 
+                      src="https://tse1.mm.bing.net/th?id=OIP.WyCZfDJICgOsDqaKddKWXQHaHa&pid=Api&P=0" width="90%" class="img-fluid" alt="">
                       <div class="form-group">
                         <label for="productImage">Image file</label>
                         <input type="file" onchange="chooseFile(this)" class="form-control-file" name="imageFile" id="productImage" placeholder="Product image" aria-describedby="productImage">

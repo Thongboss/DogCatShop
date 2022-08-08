@@ -25,7 +25,7 @@ public class FileSystemStorageServiceImpl implements StorageService{
 	@Override
 	public String getStoragedFilename(MultipartFile file, String id) {
 		String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-		return "p" + "id" + "." + ext;
+		return "p" + id + "." + ext;
 	}
 	
 	public FileSystemStorageServiceImpl(StorageProperties properties) {

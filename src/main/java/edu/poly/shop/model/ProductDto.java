@@ -23,7 +23,7 @@ public class ProductDto {
 	private String description;
 	private double discount;
 	private Date entereddate;
-	private short status;
+	private int status;
 	private Long categoryId;
 	
 	private Boolean isEdit;

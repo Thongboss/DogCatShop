@@ -35,7 +35,12 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> findAll() {
 		return productRepository.findAll();
 	}
-
+	
+	@Override
+	public List<Product> findByStatus(int status){
+		return productRepository.findByStatus(status);
+	}
+	
 	@Override
 	public Page<Product> findAll(Pageable pageable) {
 		return productRepository.findAll(pageable);
