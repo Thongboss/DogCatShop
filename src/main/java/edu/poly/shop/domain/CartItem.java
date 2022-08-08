@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class CartItem {
 	private int productId;
 	private String name;
-	private int quantity;
+	private int quantity = 1;
 	private double unitPrice;
 }

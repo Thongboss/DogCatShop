@@ -45,7 +45,7 @@ public class Product implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date entereddate;
 	@Column(nullable = false)
-	private int status;
+	private String status;
 	
 	@ManyToOne
 	@JoinColumn(name ="categoryId")

@@ -10,6 +10,6 @@ import edu.poly.shop.domain.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
-	@Query("select p from products p where p.status = ?1")
-	List<Product> findByStatus(int status);
+	@Query(value = "SELECT * FROM products where status = ?1",nativeQuery = true)
+	List<Product> findByStatus(String status);
 }
