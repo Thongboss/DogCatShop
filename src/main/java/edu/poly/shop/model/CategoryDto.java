@@ -23,5 +23,6 @@ public class CategoryDto implements Serializable{
 	@NotEmpty
 	@Length(min=5)
 	private String name;
+	
 	private Boolean isEdit = false;
 }

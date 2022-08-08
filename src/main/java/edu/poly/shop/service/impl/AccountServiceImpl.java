@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import edu.poly.shop.domain.Account;
 import edu.poly.shop.repository.AccountRepository;
@@ -27,7 +28,18 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public <S extends Account> S save(S entity) {
-		entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+		Optional<Account> optExist = findById(entity.getUsername());
+		
+		if(optExist.isPresent()) {
+			if(StringUtils.isEmpty(entity.getPassword())) {
+				entity.setPassword(optExist.get().getPassword());
+			}else {
+				entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+			}
+		}else {
+			entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+		}
+		
 		return accountRepository.save(entity);
 	}
 
