@@ -58,7 +58,7 @@ public class ProductController {
 			CategoryDto dto = new CategoryDto();
 			BeanUtils.copyProperties(item, dto);
 			return dto;
-		}).toList();
+		}).collect(Collectors.toList());
 		return list;
 		
 //		return categoryService.findAll().stream().map(item -> {
