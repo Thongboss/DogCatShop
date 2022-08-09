@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class OrderDto {
+	private int orderId;
 	private int customerId;
-	private String name;
-	private String email;
-	private String password;
-	private String phone;
-	private Date registerDate;
 	private short status;
+	private double amount;
+	private Date orderDate;
 }

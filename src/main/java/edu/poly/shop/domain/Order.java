@@ -36,7 +36,8 @@ public class Order implements Serializable {
 	private double amount;
 	@Temporal(TemporalType.DATE)
 	private Date orderDate;
-	
+	@Column(nullable = false)
+	private String address;
 	@ManyToOne
 	@JoinColumn(name="customerId")
 	private Customer customer;

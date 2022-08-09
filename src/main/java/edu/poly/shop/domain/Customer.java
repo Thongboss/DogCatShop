@@ -39,7 +39,7 @@ public class Customer implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date registerDate;
 	@Column(nullable = false)
-	private short status;
+	private String status;
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Set<Order> oders;
 }
