@@ -10,20 +10,53 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import edu.poly.shop.domain.Account;
 import edu.poly.shop.domain.Customer;
 import edu.poly.shop.repository.CustomerRepository;
 import edu.poly.shop.service.CustomerService;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Override
+	public Customer login(String email, String password) {
+		Customer optExist = findByEmail(email);
+		
+		if(optExist != null && bCryptPasswordEncoder.matches(password, optExist.getPassword())) {
+			optExist.setPassword("");
+			return optExist;
+		}
+		return null;
+	}
+
 	@Override
 	public <S extends Customer> S save(S entity) {
+		Optional<Customer> optExist = findById(entity.getCustomerId());
+
+		if (optExist.isPresent()) {
+			if (StringUtils.isEmpty(entity.getPassword())) {
+				entity.setPassword(optExist.get().getPassword());
+			} else {
+				entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+			}
+		} else {
+			entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+		}
 		return customerRepository.save(entity);
+	}
+	
+	@Override
+	public Customer findByEmail(String email){
+		return customerRepository.findByEmail(email);
 	}
 
 	@Override
@@ -175,6 +208,5 @@ public class CustomerServiceImpl implements CustomerService{
 	public <S extends Customer> List<S> findAll(Example<S> example, Sort sort) {
 		return customerRepository.findAll(example, sort);
 	}
-	
-	
+
 }

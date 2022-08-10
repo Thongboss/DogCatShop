@@ -43,7 +43,7 @@ public class AdminLoginController {
 	@PostMapping("")
 	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AdminLoginDto dto, BindingResult result) {
 		if(result.hasErrors()) {
-			model.addAttribute("message", "username and password not is empty");
+			model.addAttribute("message", "email and password not is empty");
 			return new ModelAndView("/admin/accounts/login", model);
 		}
 		Account account = accountService.login(dto.getUsername(), dto.getPassword());

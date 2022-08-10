@@ -25,9 +25,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "customers")
 public class Customer implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int customerId;
+	private Long customerId;
 	@Column(columnDefinition = "nvarchar(50) not null")
 	private String name;
 	@Column(columnDefinition = "nvarchar(100) not null")

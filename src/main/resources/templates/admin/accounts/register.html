@@ -30,14 +30,22 @@
                   <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
                   <form th:action="@{/register}" method="post" th:object="${customer}">
+                    <div th:if="${message != null}" class="alert alert-danger" role="alert">
+                      <i>[[${message}]]</i>
+                    </div>
                     <div class="form-outline mb-4">
-                      <input type="text" name="name" id="form3Example1cg" class="form-control form-control-lg" th:field="*{name}" />
-                      <label class="form-label" for="form3Example1cg">Your Name</label>
+                      <input type="text" name="name" id="name" class="form-control form-control-lg" th:field="*{name}" />
+                      <label class="form-label" for="name">Your Name</label>
                     </div>
 
                     <div class="form-outline mb-4">
                       <input type="email" name="email" id="form3Example3cg" class="form-control form-control-lg"  th:field="*{email}"/>
                       <label class="form-label" for="form3Example3cg">Your Email</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="phone" name="phone" id="form3Example3cg" class="form-control form-control-lg"  th:field="*{phone}"/>
+                      <label class="form-label" for="form3Example3cg">Your Phone</label>
                     </div>
 
                     <div class="form-outline mb-4">
@@ -58,7 +66,7 @@
                     </div> -->
 
                     <div class="d-flex justify-content-center">
-                      <button type="button"
+                      <button
                         class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                     </div>
 

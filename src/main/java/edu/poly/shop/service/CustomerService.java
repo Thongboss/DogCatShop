@@ -76,4 +76,8 @@ public interface CustomerService {
 
 	<S extends Customer> S save(S entity);
 
+	Customer findByEmail(String email);
+
+	Customer login(String email, String password);
+
 }
