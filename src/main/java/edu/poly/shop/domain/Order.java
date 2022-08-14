@@ -29,15 +29,21 @@ import lombok.NoArgsConstructor;
 public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int orderId;
+	private Long orderId;
+	@Column(nullable = false)
+	private String codeOrder;
 	@Column(nullable = false)
 	private String status;
 	@Column(nullable = false)
-	private double amount;
+	private String email;
+	@Column(nullable = false)
+	private double totalMoney;
 	@Temporal(TemporalType.DATE)
 	private Date orderDate;
 	@Column(nullable = false)
 	private String address;
+	@Column(nullable = false)
+	private String phoneNumber;
 	@ManyToOne
 	@JoinColumn(name="customerId")
 	private Customer customer;

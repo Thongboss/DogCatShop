@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
-	private int orderId;
+	private Long orderId;
 	private int customerId;
 	private String status;
 	private String adress;
-	private double amount;
+	private String codeOrder;
+	private String email;
+	private String phoneNumber;
+	private double totalMoney;
 	private Date orderDate;
 }
