@@ -31,6 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer login(String email, String password) {
 		Customer optExist = findByEmail(email);
 		
+//		System.out.println("log: "+optExist.getEmail());
+//		System.out.println("log2: "+optExist.getPassword());
+		
 		if(optExist != null && bCryptPasswordEncoder.matches(password, optExist.getPassword())) {
 			optExist.setPassword("");
 			return optExist;
@@ -40,11 +43,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public <S extends Customer> S save(S entity) {
-		Optional<Customer> optExist = findById(entity.getCustomerId());
+		Customer optExist = findByEmail(entity.getEmail());
 
-		if (optExist.isPresent()) {
+		if (optExist != null) {
 			if (StringUtils.isEmpty(entity.getPassword())) {
-				entity.setPassword(optExist.get().getPassword());
+				entity.setPassword(optExist.getPassword());
 			} else {
 				entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
 			}

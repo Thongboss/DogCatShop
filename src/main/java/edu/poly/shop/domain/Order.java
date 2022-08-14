@@ -31,7 +31,7 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
 	@Column(nullable = false)
-	private short status;
+	private String status;
 	@Column(nullable = false)
 	private double amount;
 	@Temporal(TemporalType.DATE)

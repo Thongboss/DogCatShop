@@ -29,7 +29,7 @@
                 <div class="card-body p-5">
                   <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                  <form th:action="@{/register}" method="post" th:object="${customer}">
+                  <form th:action="@{/login/register}" method="post" th:object="${customer}">
                     <div th:if="${message != null}" class="alert alert-danger" role="alert">
                       <i>[[${message}]]</i>
                     </div>
@@ -70,7 +70,7 @@
                         class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                     </div>
 
-                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <a th:href="@{/}"
+                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <a th:href="@{/login}"
                         class="fw-bold text-body"><u>Login here</u></a></p>
 
                   </form>

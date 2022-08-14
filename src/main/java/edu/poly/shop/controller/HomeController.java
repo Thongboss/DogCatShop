@@ -3,6 +3,8 @@ package edu.poly.shop.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -29,10 +31,21 @@ public class HomeController {
 	@Autowired
 	private StorageService storageService;
 	
+	@Autowired 
+	private HttpSession session;
+	
 	@GetMapping("")
 	public String home(Model model) {
 		List<Product> list = productService.findByStatus("Bestseller");
+		
+		System.out.println("login: "+ session.getAttribute("username"));
+		
 		model.addAttribute("listProducts", list);
+		
+//		Object hola = session.getAttribute("username");
+//		if(hola != null) {
+//			model.addAttribute("hola",hola);
+//		}
 		return "/admin/fragments/index";
 	}
 	

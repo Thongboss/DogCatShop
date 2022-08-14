@@ -1,5 +1,7 @@
 package edu.poly.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -18,13 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.poly.shop.domain.Account;
 import edu.poly.shop.domain.Customer;
+import edu.poly.shop.domain.Product;
 import edu.poly.shop.model.AdminLoginDto;
 import edu.poly.shop.model.CustomerDto;
 import edu.poly.shop.service.CookieService;
 import edu.poly.shop.service.CustomerService;
+import edu.poly.shop.service.ProductService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("login")
 public class LoginController {
 	@Autowired
 	private CustomerService customerService;
@@ -36,37 +40,39 @@ public class LoginController {
 	private HttpServletRequest request;
 	
 	@Autowired
+	private ProductService productService;
+	
+	@Autowired
 	private CookieService cookieService;
 	
 	@GetMapping("")
 	public String login(Model model) {
-		model.addAttribute("account", new CustomerDto());
+		model.addAttribute("customer", new CustomerDto());
 		return "/admin/accounts/loginc";
 	}
 	
 	@PostMapping("")
-	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") CustomerDto dto, BindingResult result) {
-		if(result.hasErrors()) {
+	public String login(ModelMap model, @ModelAttribute("customer") CustomerDto dto) {
+		if(dto.getEmail().equals("") || dto.getPassword().equals("")) {
 			model.addAttribute("message", "email and password not is empty");
-			return new ModelAndView("/admin/accounts/loginc", model);
+			return "admin/accounts/loginc";
 		}
 		Customer account = customerService.login(dto.getEmail(), dto.getPassword());
 		
 		if(account == null) {
 			model.addAttribute("message", "Invalid email and pasword");
-			return new ModelAndView("/admin/accounts/loginc", model);
+			return "admin/accounts/loginc";
 		}
 		session.setAttribute("username", account.getEmail());
 		
-		Object ruri = session.getAttribute("redirect-uri");
+//		Object ruri = session.getAttribute("redirect-uri");
 		
-		if(ruri != null) {
-			session.removeAttribute("redirect-uri");
-			return new ModelAndView("redirect:" + ruri);
-		}
-		
-		
-		return new ModelAndView("forward:/fragments/index", model);
+//		if(ruri != null) {
+//			session.removeAttribute("redirect-uri");
+//			return new ModelAndView("redirect:" + ruri);
+//		} 
+//		
+		return "redirect:/home";
 	}
 	
 	@GetMapping("register")
@@ -82,9 +88,11 @@ public class LoginController {
 			model.addAttribute("message","fields cannot be left blank, email must be in the correct format");
 			return new ModelAndView("/admin/accounts/register",model);
 		}
-		if(dto.getPassword().equals(request.getParameter("repassword"))){
+//		System.out.println("pass: "+ dto.getPassword());
+//		System.out.println("REpass: "+ request.getParameter("repassword"));
+		if(!dto.getPassword().equals(request.getParameter("repassword"))){
 			model.addAttribute("message","password does not match");
-			return new ModelAndView("/admin/accounts/register",model);
+			return new ModelAndView("admin/accounts/register",model);
 		}
 		
 		Customer cus = new Customer();
@@ -95,6 +103,6 @@ public class LoginController {
 		
 		model.addAttribute("message", "Register successful!");
 		
-		return new ModelAndView("forward: /admin/accounts/loginc",model);
+		return new ModelAndView("admin/accounts/loginc",model);
 	}
 }

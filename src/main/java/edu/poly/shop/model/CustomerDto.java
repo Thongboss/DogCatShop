@@ -33,4 +33,6 @@ public class CustomerDto implements Serializable{
 	private Date registerDate;
 
 	private String status;
+	
+//	private Boolean isLogin = false;
 }

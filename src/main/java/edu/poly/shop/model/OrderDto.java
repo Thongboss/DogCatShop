@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 public class OrderDto {
 	private int orderId;
 	private int customerId;
-	private short status;
+	private String status;
+	private String adress;
 	private double amount;
 	private Date orderDate;
 }
