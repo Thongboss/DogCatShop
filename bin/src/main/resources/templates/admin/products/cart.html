@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/dashboardLayout.html}">
+<head>
+    <title>Cart</title>
+    </head>
+      <body>
+              <section class="row" layout:fragment="content">
+                  <div class="col mt-4 ">
+                    <table border="1" style="width:100%" class="table table-hover">
+                        <tr class="thead-dark">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                        </tr>
+                        <form th:action="@{'/cart/update/' + ${item.productId} }" method="post" th:each=" item : ${cart}">
+                            <input type="hidden" name="id" value="${item.productId}">
+                            <tr>
+                            <td th:text="${item.productId}"></td>
+                            <td th:text="${item.name}"></td>
+                            <td th:text="${item.unitPrice}"></td>
+                            <td><input name="quantity" th:value="${item.quantity}"
+                            onblur="this.form.submit()" style="width:50px;"></td>
+                            <td th:text="${item.unitPrice * item.quantity}"></td>
+                            <td>
+                            <a class="btn btn-danger" th:href="@{'/cart/remove/' + ${item.productId}}">Remove</a>
+                            </td>
+                            </tr>
+                        </form>      
+                    </table>
+                    <a class="btn btn-outline-warning" th:href="@{/cart/clear}">Clear cart</a>
+                    <a class="btn btn-outline-success" th:href="@{/home}">Add more</a>
+                    <a class="btn btn-outline-primary" th:href="@{/order}">Check out</a>
+                </div>
+              </section>
+      </body>
+</html>

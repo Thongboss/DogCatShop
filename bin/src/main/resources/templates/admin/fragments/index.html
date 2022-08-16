@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/dashboardLayout.html}">
+<head>
+    <title>Home</title>
+    </head>
+      <body>
+              <section class="row" layout:fragment="content">
+                <form method="GET" th:action="@{/home}">
+                    <!-- <c:if test="${!empty phan }">
+                        <div class="alert alert-warning">
+                            <strong>${phan }</strong>
+                        </div>
+                    </c:if> -->
+                    <div class="container">
+                        <div class="d-flex flex-row flex-wrap justify-content-between">
+                                <div class="p-2" th:each=" product : ${listProducts}">
+                                    <div class="card">
+                                        <img class="card-img-top" th:src="${product.image != null ? '/home/images/' + product.image : '/images/noimage.png'}" 
+                                        src="'uploads/images/'+${product.image}" alt=""
+                                            style="width: 250px; height: 250px">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: blue" th:text="${product.name}"></h5>
+                                            <span th:text="${product.quantity} + ' pcs'">pcs</span>
+                                            <p th:text="${product.unitPrice} + ' $'">$</p>
+                                            <a
+                                                th:href="@{'/home/detail/' +${product.productId}}"
+                                                class="btn btn-primary">detail</a>
+                                            <a type="button" class="btn btn-success"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModalLong"
+                                                th:href="@{'/cart/add/' + ${product.productId}}">Add to cart</a>
+                                            <div class="modal fade" id="exampleModalLong" tabindex="-1"
+                                                role="dialog" aria-labelledby="exampleModalLongTitle"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Default purchase quantity</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <p>the number of products to be added automatically is 1</p>
+                                                        </div>
+                                                        
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <a th:href="@{/cart/view}" class="btn btn-success">Add</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </form>
+              </section>
+      </body>
+</html>

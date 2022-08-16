@@ -21,6 +21,11 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderRepository orderRepository;
 
+	
+	@Override
+	public Order getOrderByCode(String code) {
+		return orderRepository.findByCode(code);
+	}
 	@Override
 	public <S extends Order> S save(S entity) {
 		return orderRepository.save(entity);

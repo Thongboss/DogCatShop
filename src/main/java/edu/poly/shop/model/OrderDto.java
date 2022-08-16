@@ -13,7 +13,7 @@ public class OrderDto {
 	private Long orderId;
 	private int customerId;
 	private String status;
-	private String adress;
+	private String address;
 	private String codeOrder;
 	private String email;
 	private String phoneNumber;

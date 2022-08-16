@@ -25,8 +25,6 @@ public class OrderDetail implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderDetailId;
 	@Column(nullable = false)
-	private int orderId;
-	@Column(nullable = false)
 	private int quantity;
 	@Column(nullable = false)
 	private double unitPrice;
@@ -36,6 +34,6 @@ public class OrderDetail implements Serializable {
 	private Product product;
 	
 	@ManyToOne
-	@JoinColumn(name="orderTd")
+	@JoinColumn(name="orderId")
 	private Order order;
 }

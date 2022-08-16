@@ -76,4 +76,6 @@ public interface OrderService {
 
 	<S extends Order> S save(S entity);
 
+	Order getOrderByCode(String code);
+
 }

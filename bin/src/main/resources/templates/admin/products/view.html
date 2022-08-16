@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{admin/dashboardLayout.html}">
+<head>
+    </head>
+      <body>
+              <section class="row" layout:fragment="content">
+                <div class="d-flex justify-content-center mx-2">
+                    <form method="GET" th:action="@{'/home/detail' + ${product.productId}}" th:object="${product}">
+                        <h2 style="margin-left: 5px;" th:text="'product details '+ ${product.name}">product details</h2>
+                        <div class="p-2">
+                            <div class="card">
+                                <img class="card-img-top" th:src="${product.image != null ? '/home/images/' + product.image : '/images/noimage.png'}" 
+                                        src="'uploads/images/'+${product.image}" alt=""
+                                            style="width: 300px; height: 300px">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: blue" th:text="${product.name}">${product.tensp }</h5>
+                                    <span th:text="'Quantity: ' + ${product.quantity} + ' pcs'">Quantity: ${product.soLuong } pcs</span>
+                                    <p th:text="'Unit price: ' + ${product.unitPrice} + ' $'">Unit price: ${product.donGia }VNĐ</p>
+                                    <p th:text="'Discount: ' + ${product.discount} + ' %'">Color: ${product.mauSac }</p>
+                                    <p th:text="'Status: ' + ${product.status}">Size: ${product.kichThuoc }</p>
+                                    <!-- <p th:text="'Category: ' + ${product.category.categoryId}"></p> -->
+                                    <p th:text="'Description: ' + ${ product.description}">Note: ${product.ghiChu }</p>
+                                    <a th:href="@{'/cart/add/' + ${product.productId}}" class="btn btn-success">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </section>
+      </body>
+</html>
