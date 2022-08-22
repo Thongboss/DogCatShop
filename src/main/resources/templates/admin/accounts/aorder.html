@@ -25,10 +25,10 @@
                             <td th:text="${item.phoneNumber}"></td>
                             <td th:text="${item.address}"></td>
                             <td>
-                              <select name="status" id="" th:each="status : ${liststatus}">
-                                <option th:text="${status}" th:value="${status}"></option>
-                                <option th:text="${status}" th:value="${status}"></option>
-                                <option th:text="${status}" th:value="${status}"></option>
+                              <select name="status" id="" th:each="ite : ${liststatus}">
+                                <option th:text="${ite}" th:value="${ite}"></option>
+                                <!-- <option th:text="${ite}" th:value="${ite}"></option>
+                                <option th:text="${ite}" th:value="${ite}"></option> -->
                               </select>
                             </td>
                             <td th:text="${item.totalMoney}"></td>

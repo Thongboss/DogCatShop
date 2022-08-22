@@ -78,4 +78,6 @@ public interface OrderService {
 
 	Order getOrderByCode(String code);
 
+	List<Order> getListOrderByStatus(String status);
+
 }

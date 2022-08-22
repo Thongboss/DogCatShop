@@ -23,6 +23,11 @@ public class OrderServiceImpl implements OrderService{
 
 	
 	@Override
+	public List<Order> getListOrderByStatus(String status){
+		return orderRepository.listOrderByStatus(status);
+	}
+	
+	@Override
 	public Order getOrderByCode(String code) {
 		return orderRepository.findByCode(code);
 	}

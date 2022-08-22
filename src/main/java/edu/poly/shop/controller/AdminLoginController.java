@@ -66,7 +66,7 @@ public class AdminLoginController {
 		}
 		
 		
-		return new ModelAndView("forward:/fragments/index", model);
+		return new ModelAndView("redirect:/home", model);
 		
 	}
 }

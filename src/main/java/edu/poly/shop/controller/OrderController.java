@@ -80,7 +80,8 @@ public class OrderController {
 		ohu.setEmail(dto.getEmail());
 		ohu.setPhoneNumber(dto.getPhoneNumber());
 		ohu.setStatus("Chờ xác nhận");
-		ohu.setTotalMoney(dto.getTotalMoney());
+		ohu.setTotalMoney(shoppingCartService.getAmount());
+//		System.out.println("total money: " + dto.getTotalMoney());
 		List<Order> list = orderService.findAll();
 		if (list.size() == 0) {
 			ohu.setCodeOrder("HD001");
