@@ -34,6 +34,7 @@ public class HomeController {
 	@Autowired 
 	private HttpSession session;
 	
+	
 	@GetMapping("")
 	public String home(Model model) {
 		List<Product> list = productService.findByStatus("Bestseller");
@@ -41,6 +42,14 @@ public class HomeController {
 		System.out.println("login: "+ session.getAttribute("username"));
 		
 		model.addAttribute("listProducts", list);
+		
+		boolean log = true;
+		Object hono = session.getAttribute("username");
+		if(hono != null) {
+			System.out.println("chưa đăng nhập!");
+			log = false;
+		}
+		model.addAttribute("hono", log);
 		
 //		Object hola = session.getAttribute("username");
 //		if(hola != null) {
