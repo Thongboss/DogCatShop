@@ -28,6 +28,11 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
+	public List<Order> getListOrderHistory(Long id){
+		return orderRepository.listOrderHistory(id);
+	}
+	
+	@Override
 	public Order getOrderByCode(String code) {
 		return orderRepository.findByCode(code);
 	}

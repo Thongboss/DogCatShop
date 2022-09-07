@@ -80,4 +80,6 @@ public interface OrderService {
 
 	List<Order> getListOrderByStatus(String status);
 
+	List<Order> getListOrderHistory(Long id);
+
 }

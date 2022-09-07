@@ -110,4 +110,17 @@ public class OrderController {
 		}
 		return "redirect:/home";
 	}
+	
+	@GetMapping("/history")
+	public String history(Model model) {
+		String email = String.valueOf(session.getAttribute("username"));
+
+		Customer cus = customerService.findByEmail(email);
+		
+		List<Order> list = orderService.getListOrderHistory(cus.getCustomerId());
+		
+		model.addAttribute("orders", list);
+		
+		return "/admin/products/orderHistory";
+	}
 }
