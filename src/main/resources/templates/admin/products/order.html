@@ -7,51 +7,52 @@
 
 <body>
   <section class="row" layout:fragment="content">
-    <form th:action="@{/order}" method="post" th:object="${order}">
-      <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="text" class="form-control" th:text="${yourname}" aria-describedby="nameId" disabled>
-        <small id="helpId" class="form-text text-muted">Invalid your name</small>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" th:field="*{email}" name="email" id="email" aria-describedby="emailId" placeholder="Email">
-        <small id="helpId" class="form-text text-muted">Invalid your Email</small>
-      </div>
-      <div class="form-group">
-        <label for="phoneNumber">Phone Number</label>
-        <input type="text" class="form-control" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" aria-describedby="phoneNumberId"
-          placeholder="your phone number">
-        <small id="helpId" class="form-text text-muted">Invalid your phone number</small>
-      </div>
-      <div class="form-group">
-        <label for="totalMoney">Total Money</label>
-        <input type="text" class="form-control" th:field="*{totalMoney}" name="totalMoney" id="totalMoney" aria-describedby="totalMoneyId"
-          disabled="true">
-      </div>
-      <div class="form-group">
-        <label for="address">Your Address</label>
-        <textarea class="form-control" th:field="*{address}" name="address" id="address" ></textarea>
-      </div>
-      <table border="1" style="width:100%" class="table table-hover">
-        <tr class="thead-dark">
-          <th>Name</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Amount</th>
-        </tr>
-        <form th:action="@{/cart/view }" method="get" th:each=" item : ${cart}">
-          <input type="hidden" name="id" value="${item.productId}">
-          <tr>
-            <td th:text="${item.name}"></td>
-            <td th:text="${item.unitPrice}"></td>
-            <td><input name="quantity" th:value="${item.quantity}" style="width:50px;"></td>
-            <td th:text="${item.unitPrice * item.quantity}"></td>
+    <div class="col-6 offset-3 mt-4">
+
+      <form th:action="@{/order}" method="post" th:object="${order}">
+        <div>
+          <label for="">Your Name: </label>
+          <span th:text="${yourname}"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" th:field="*{email}" name="email" id="email" aria-describedby="emailId"
+            placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="text" class="form-control" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber"
+            aria-describedby="phoneNumberId" placeholder="your phone number">
+        </div>
+        <div class="form-group">
+          <label for="totalMoney">Total Money</label>
+          <input type="text" class="form-control" th:field="*{totalMoney}" name="totalMoney" id="totalMoney"
+            aria-describedby="totalMoneyId" disabled="true">
+        </div>
+        <div class="form-group">
+          <label for="address">Your Address</label>
+          <textarea class="form-control" th:field="*{address}" name="address" id="address"></textarea>
+        </div>
+        <table border="1" style="width:100%" class="table table-hover">
+          <tr class="thead-dark">
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Amount</th>
           </tr>
-        </form>
-      </table>
-      <button class="btn btn-outline-success">Order</button>
-    </form>
+          <form th:action="@{/cart/view }" method="get" th:each=" item : ${cart}">
+            <input type="hidden" name="id" value="${item.productId}">
+            <tr>
+              <td th:text="${item.name}"></td>
+              <td th:text="${item.unitPrice}"></td>
+              <td><input name="quantity" th:value="${item.quantity}" style="width:50px;"></td>
+              <td th:text="${item.unitPrice * item.quantity}"></td>
+            </tr>
+          </form>
+        </table>
+        <button class="btn btn-outline-success">Order</button>
+      </form>
+    </div>
   </section>
 </body>
 

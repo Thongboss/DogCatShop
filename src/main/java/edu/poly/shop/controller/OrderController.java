@@ -64,7 +64,7 @@ public class OrderController {
 		oht.setEmail(email);
 		oht.setTotalMoney(shoppingCartService.getAmount());
 
-		System.out.println("name: " + cus.getName());
+//		System.out.println("name: " + cus.getName());
 		model.addAttribute("yourname", cus.getName());
 
 		model.addAttribute("order", oht);

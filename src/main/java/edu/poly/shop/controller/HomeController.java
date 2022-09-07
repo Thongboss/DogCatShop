@@ -79,4 +79,16 @@ public class HomeController {
 		
 		return "admin/products/view";
 	}
+	
+	@GetMapping("logout")
+	public String logout() {
+		session.removeAttribute("username");
+		return "redirect:/login";
+	}
+	
+	
+	
+	
+	
+	
 }
