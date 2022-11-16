@@ -3,6 +3,7 @@ package edu.poly.shop.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,7 @@ import edu.poly.shop.repository.CategoryRepository;
 import edu.poly.shop.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService{
+	@Autowired
 	CategoryRepository categoryRepository;
 
 	public CategoryServiceImpl(CategoryRepository categoryRepository) {
