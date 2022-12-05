@@ -25,6 +25,7 @@ import edu.poly.shop.service.CustomerService;
 import edu.poly.shop.service.OrderDetailService;
 import edu.poly.shop.service.OrderService;
 import edu.poly.shop.service.ProductService;
+import edu.poly.shop.service.SessionService;
 import edu.poly.shop.service.ShoppingCartService;
 
 @Controller
@@ -51,13 +52,22 @@ public class OrderController {
 
 	@Autowired
 	HttpSession session;
+	
+//	@Autowired
+//	SessionService sessionService;
 
 	@GetMapping("")
 	public String order(Model model) {
 
 		String email = String.valueOf(session.getAttribute("username"));
+		
+//		System.out.println("email: "+email);
 
 		Customer cus = customerService.findByEmail(email);
+		
+		if(cus == null) {
+			return "redirect:/login";
+		}
 
 		Order oht = new Order();
 		oht.setPhoneNumber(cus.getPhone());
@@ -108,6 +118,11 @@ public class OrderController {
 			
 			orderDetailService.save(oko);
 		}
+		
+		cart.clear();
+		
+//		session.removeAttribute("cart");
+		
 		return "redirect:/home";
 	}
 	

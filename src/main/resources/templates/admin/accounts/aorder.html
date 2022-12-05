@@ -25,9 +25,9 @@
                             <td th:text="${item.phoneNumber}"></td>
                             <td th:text="${item.address}"></td>
                             <td>
-                              <select name="status" id="" th:each="ite : ${liststatus}">
-                                <option th:text="${ite}" th:value="${ite}"></option>
-                                <!-- <option th:text="${ite}" th:value="${ite}"></option>
+                              <select>
+                                <option name="status" id="" th:each="ite : ${liststatus}" th:text="${ite}" th:value="${ite}"></option>
+                                <!-- <option th:text="${ite}" th:value="${ite}"></option>  th:text="${ite}" th:value="${ite}"
                                 <option th:text="${ite}" th:value="${ite}"></option> -->
                               </select>
                             </td>

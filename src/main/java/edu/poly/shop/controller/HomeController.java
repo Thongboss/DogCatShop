@@ -39,14 +39,14 @@ public class HomeController {
 	public String home(Model model) {
 		List<Product> list = productService.findByStatus("Bestseller");
 		
-		System.out.println("login: "+ session.getAttribute("username"));
+//		System.out.println("login: "+ session.getAttribute("username"));
 		
 		model.addAttribute("listProducts", list);
 		
 		boolean log = true;
 		Object hono = session.getAttribute("username");
 		if(hono != null) {
-			System.out.println("chưa đăng nhập!");
+//			System.out.println("chưa đăng nhập!");
 			log = false;
 		}
 		model.addAttribute("hono", log);

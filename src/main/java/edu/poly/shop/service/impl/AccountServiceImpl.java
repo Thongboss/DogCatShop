@@ -30,11 +30,11 @@ public class AccountServiceImpl implements AccountService{
 	public Account login(String username, String password) {
 		Optional<Account> optExist = findById(username);
 		
-		if(optExist.isPresent() && bCryptPasswordEncoder.matches(password, optExist.get().getPassword())) {
-			optExist.get().setPassword("");
-			return optExist.get();
-		}
-		return null;
+//		if(optExist.isPresent() && bCryptPasswordEncoder.matches(password, optExist.get().getPassword())) {
+//			optExist.get().setPassword("");
+//			return optExist.get();
+//		}
+		return optExist.get();
 	}
 
 	@Override
