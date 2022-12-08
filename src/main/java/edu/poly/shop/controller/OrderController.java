@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +20,10 @@ import edu.poly.shop.domain.Product;
 import edu.poly.shop.model.CartItemDto;
 import edu.poly.shop.model.OrderDto;
 import edu.poly.shop.service.CustomerService;
+import edu.poly.shop.service.MailerService;
 import edu.poly.shop.service.OrderDetailService;
 import edu.poly.shop.service.OrderService;
 import edu.poly.shop.service.ProductService;
-import edu.poly.shop.service.SessionService;
 import edu.poly.shop.service.ShoppingCartService;
 
 @Controller
@@ -49,6 +47,9 @@ public class OrderController {
 
 	@Autowired
 	ShoppingCartService shoppingCartService;
+	
+	@Autowired
+	MailerService mailerService;
 
 	@Autowired
 	HttpSession session;
@@ -85,6 +86,8 @@ public class OrderController {
 
 	@PostMapping("")
 	public String order(Model model, @ModelAttribute("order") OrderDto dto) {
+		String core = "HD001";
+		String code = "";
 		Order ohu = new Order();
 		ohu.setAddress(dto.getAddress());
 		ohu.setEmail(dto.getEmail());
@@ -94,11 +97,13 @@ public class OrderController {
 //		System.out.println("total money: " + dto.getTotalMoney());
 		List<Order> list = orderService.findAll();
 		if (list.size() == 0) {
-			ohu.setCodeOrder("HD001");
+			ohu.setCodeOrder(core);
+			code = core;
 		} else {
 			Long a;
 			a = list.get(list.size() - 1).getOrderId();
-			ohu.setCodeOrder("HD001" + String.valueOf(a));
+			code = core + String.valueOf(a);
+			ohu.setCodeOrder(code);
 		}
 		String email = String.valueOf(session.getAttribute("username"));
 
@@ -120,6 +125,13 @@ public class OrderController {
 		}
 		
 		cart.clear();
+		
+		System.out.println("mail: "+email);
+		
+		String subject = "Đơn hàng "+code+" từ DogCatShop!";
+		String body = "Đơn hàng của bạn đã được yêu cầu và chờ xác nhận từ shop!";
+		
+		mailerService.queue(email, subject, body);
 		
 //		session.removeAttribute("cart");
 		
