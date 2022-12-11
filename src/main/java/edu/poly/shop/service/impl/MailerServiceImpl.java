@@ -65,6 +65,7 @@ public class MailerServiceImpl implements MailerService{
 	public void queue(MailInfo mail) {
 		// TODO Auto-generated method stub
 		list.add(mail);
+		this.run();
 	}
 
 	@Override
