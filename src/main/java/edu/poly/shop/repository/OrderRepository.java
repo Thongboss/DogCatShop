@@ -20,4 +20,7 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 	
 	@Query(value = "SELECT * FROM orders where customer_id = ?1",nativeQuery = true)
 	List<Order> listOrderHistory(Long id);
+	
+	@Query(value = "UPDATE orders SET status = ?1 WHERE orders.order_id = ?2",nativeQuery = true)
+	void updateStatusOrder(String status, Long id);
 }

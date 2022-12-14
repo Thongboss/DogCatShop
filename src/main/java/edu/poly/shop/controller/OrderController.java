@@ -126,7 +126,7 @@ public class OrderController {
 		
 		cart.clear();
 		
-		System.out.println("mail: "+email);
+//		System.out.println("mail: "+email);
 		
 		String subject = "Đơn hàng "+code+" từ DogCatShop!";
 		String body = "Đơn hàng của bạn đã được yêu cầu và chờ xác nhận từ shop!";

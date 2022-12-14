@@ -190,6 +190,11 @@ public class OrderServiceImpl implements OrderService{
 	public <S extends Order> List<S> findAll(Example<S> example, Sort sort) {
 		return orderRepository.findAll(example, sort);
 	}
+
+	@Override
+	public void updateStatusOrder(String status, Long id) {
+		orderRepository.updateStatusOrder(status, id);
+	}
 	
 	
 }
