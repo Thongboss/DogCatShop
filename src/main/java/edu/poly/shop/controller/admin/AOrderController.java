@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.poly.shop.domain.Order;
 import edu.poly.shop.model.OrderDto;
+import edu.poly.shop.service.MailerService;
 import edu.poly.shop.service.OrderService;
 
 @Controller
@@ -30,6 +32,8 @@ public class AOrderController {
 	OrderService  orderService;
 	@Autowired
 	HttpServletRequest request;
+	@Autowired
+	MailerService mailerService;
 	
 	@GetMapping("")
 	public String order(Model model) {
@@ -39,12 +43,23 @@ public class AOrderController {
 	
 	@RequestMapping("/{id}")
 	public String updateOder(Model model, @PathVariable("id") Integer id, @ModelAttribute OrderDto odto) {
-//		String status = (String) model.getAttribute("status");
-//		System.out.println("ID: "+id);
-//		System.out.println("Status: "+odto.getStatus());
 		Long convert = (long) id;
+		Order mainn = orderService.findById(convert).get();
 		String status = "";
-		orderService.updateStatusOrder(odto.getStatus(), convert);
+		String code = mainn.getCodeOrder();
+		String email = mainn.getEmail();
+		String subject = "Đơn hàng "+code+" từ DogCatShop!";
+//		String statusOld = orderService.findById(convert).get().getStatus();
+		
+		if(odto.getStatus().equals("Đang giao") ) {
+			status = "Đơn hàng của bạn đã được chuyển đi.";
+		}else {
+			status = "Đơn hàng của bạn đã bị hủy bỏ do thiếu tính xác thực.";
+		}
+		
+		orderService.updateOrderSetStatusForId(odto.getStatus(), convert);
+		mailerService.queue(email, subject, status);
+		
 		return "redirect:/admin/order";
 	}
 	
@@ -53,7 +68,7 @@ public class AOrderController {
 		List<String> status = new ArrayList<>();
 		status.add("Chờ xác nhận");
 		status.add("Đang giao");
-		status.add("Đã nhận");
+//		status.add("Đã nhận");
 		status.add("Hủy đơn");
 		return status;
 	}

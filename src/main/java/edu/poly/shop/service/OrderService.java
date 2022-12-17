@@ -82,6 +82,6 @@ public interface OrderService {
 
 	List<Order> getListOrderHistory(Long id);
 	
-	void updateStatusOrder(String status, Long id);
+	void updateOrderSetStatusForId(String status, Long id);
 
 }

@@ -192,8 +192,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void updateStatusOrder(String status, Long id) {
-		orderRepository.updateStatusOrder(status, id);
+	public void updateOrderSetStatusForId(String status, Long id) {
+		orderRepository.updateOrderSetStatusForId(status, id);
 	}
 	
 	
