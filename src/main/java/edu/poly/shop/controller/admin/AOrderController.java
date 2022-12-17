@@ -63,12 +63,50 @@ public class AOrderController {
 		return "redirect:/admin/order";
 	}
 	
+	@GetMapping("/start")
+	public String orderStart(Model model) {
+		model.addAttribute("listOrderStart", orderService.getListOrderByStatus("Đang giao"));
+		return "admin/accounts/Ostart";
+	}
+	
+	@RequestMapping("/start/{id}")
+	public String updateOderStart(Model model, @PathVariable("id") Integer id, @ModelAttribute OrderDto odto) {
+		Long convert = (long) id;
+		Order mainn = orderService.findById(convert).get();
+		String status = "";
+		String code = mainn.getCodeOrder();
+		String email = mainn.getEmail();
+		String subject = "Đơn hàng "+code+" từ DogCatShop!";
+//		String statusOld = orderService.findById(convert).get().getStatus();
+		
+		if(odto.getStatus().equals("Đã nhận") ) {
+			status = "Đơn hàng của bạn đã được giao. Chúc bạn có những trải nghiệm tuyệt vời cùng thú cưng của mình!";
+		}else {
+			status = "Đơn hàng của bạn đã bị hủy bỏ do gặp vấn đề trong lúc chuyển giao. Chúng tối sẽ liên hệ lại sớm nhất với bạn.";
+		}
+		
+		orderService.updateOrderSetStatusForId(odto.getStatus(), convert);
+		mailerService.queue(email, subject, status);
+		
+		return "redirect:/admin/order/start";
+	}
+	
 	@ModelAttribute("liststatus")
 	public List<String> list(){
 		List<String> status = new ArrayList<>();
 		status.add("Chờ xác nhận");
 		status.add("Đang giao");
 //		status.add("Đã nhận");
+		status.add("Hủy đơn");
+		return status;
+	}
+	
+	@ModelAttribute("liststatusstart")
+	public List<String> listStart(){
+		List<String> status = new ArrayList<>();
+//		status.add("Chờ xác nhận");
+		status.add("Đang giao");
+		status.add("Đã nhận");
 		status.add("Hủy đơn");
 		return status;
 	}

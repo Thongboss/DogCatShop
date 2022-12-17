@@ -22,7 +22,7 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="@{/cart/view}">Cart</a>
-                    <a class="dropdown-item" th:href="@{/categories/searchpaginated}">Order History</a>
+                    <a class="dropdown-item" th:href="@{/order/history}">Order History</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -47,10 +47,10 @@
                     <a class="dropdown-item" th:href="@{/admin/accounts}">Account</a>
                     <a class="dropdown-item" th:href="@{/admin/categories/searchpaginated}">Category</a>
                     <a class="dropdown-item" th:href="@{/admin/products}">Product</a>
-                    <a class="dropdown-item" th:href="@{/admin/order}">Order</a>
+                    <a class="dropdown-item" th:href="@{/admin/order}">Order wait</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                      Statistical</a>
+                    <a class="dropdown-item" th:href="@{/admin/order/start}">
+                      Order start</a>
                   </div>
                 </li>
                 <li class="nav-item">

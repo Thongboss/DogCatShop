@@ -21,6 +21,7 @@
                                 <th>Phone Number</th>
                                 <th>Status</th>
                                 <th>Total Money</th>
+                                <th>Chi Tiết</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -31,6 +32,9 @@
                                   <td th:text="${item.phoneNumber}"></td>
                                   <td th:text="${item.status}"></td>
                                   <td th:text="${item.totalMoney}"></td>
+                                  <td>
+                                    <button class="btn btn-outline-primary">Chi tiết</button>
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>
