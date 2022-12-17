@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2022 at 04:16 PM
+-- Generation Time: Dec 17, 2022 at 08:12 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -84,7 +84,11 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`customer_id`, `email`, `name`, `password`, `phone`, `register_date`, `status`) VALUES
 (1, 'huuthong251099@gmail.com', 'thông ga', '$2a$10$UZOwUWVpCCDBg1owW7NhquZvomzbJSdxG2A0L4qfbvIQRRAj14WV6', '0368443774', NULL, 'activate'),
-(2, 'Huongtram@gmail.com', 'Nguyễn thị hương trầm', '$2a$10$ocOsembeFpeGClSA.glLq.P2lDAdYDQS.Pzc5bx.1ijuqzbGiryCG', '0368445234', NULL, 'activate');
+(2, 'Huongtram@gmail.com', 'Nguyễn thị hương trầm', '$2a$10$ocOsembeFpeGClSA.glLq.P2lDAdYDQS.Pzc5bx.1ijuqzbGiryCG', '0368445234', NULL, 'activate'),
+(3, 'thong@gmail.com', 'no name', '$2a$10$rQD.Q3e.LugJzpQpA0LwBuLDVfysOvJdqpESeclsJACpSEei/504.', '0368445234', NULL, 'activate'),
+(5, 'thongvhph13968@fpt.edu.vn', 'Nguyễn hươ', '$2a$10$5amfv6q.9TprcdpEiMTA0.Epr4aj3cmvHH2YFjyM8j7nCCUpYj98K', '0368445234', NULL, 'activate'),
+(6, 'chanhday0106@gmail.com', 'Trang', '$2a$10$YfImNn0HlcUiUjTCfukO..bNoT0niDp3p/rqSdFEyYwmxzkzS34j6', '0368445234', NULL, 'activate'),
+(7, 'changtom010603@gmail.com', 'Tang Đần', '$2a$10$e3B1Z1E/93psAWJDcAhDPuv/B0LRBLrHZMzbHzr7NeJPT7MPyvm16', '0368445234', NULL, 'activate');
 
 -- --------------------------------------------------------
 
@@ -99,6 +103,49 @@ CREATE TABLE `orderdetails` (
   `order_id` bigint(20) DEFAULT NULL,
   `product_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orderdetails`
+--
+
+INSERT INTO `orderdetails` (`order_detail_id`, `quantity`, `unit_price`, `order_id`, `product_id`) VALUES
+(3, 1, 720, 2, 3),
+(4, 3, 345, 3, 4),
+(5, 1, 679, 3, 5),
+(6, 1, 1568, 4, 7),
+(7, 1, 739, 4, 8),
+(8, 1, 679, 5, 5),
+(9, 1, 739, 5, 8),
+(10, 1, 1125, 6, 2),
+(11, 1, 692, 6, 6),
+(12, 1, 1125, 7, 2),
+(13, 1, 1568, 7, 7),
+(14, 1, 1125, 8, 2),
+(15, 1, 345, 8, 4),
+(16, 1, 437, 9, 1),
+(17, 1, 1568, 9, 7),
+(18, 1, 1125, 10, 2),
+(19, 1, 739, 10, 8),
+(20, 1, 437, 11, 1),
+(21, 1, 692, 11, 6),
+(22, 1, 1125, 12, 2),
+(23, 1, 692, 12, 6),
+(24, 2, 720, 13, 3),
+(25, 1, 1568, 13, 7),
+(26, 1, 720, 14, 3),
+(27, 1, 345, 14, 4),
+(28, 1, 679, 14, 5),
+(29, 1, 1125, 15, 2),
+(30, 1, 739, 15, 8),
+(31, 1, 437, 16, 1),
+(32, 1, 692, 16, 6),
+(33, 1, 1125, 17, 2),
+(34, 1, 1568, 17, 7),
+(35, 1, 720, 18, 3),
+(36, 5, 679, 18, 5),
+(37, 4, 345, 19, 4),
+(38, 6, 1125, 20, 2),
+(39, 1, 692, 20, 6);
 
 -- --------------------------------------------------------
 
@@ -117,6 +164,31 @@ CREATE TABLE `orders` (
   `total_money` double NOT NULL,
   `customer_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `address`, `code_order`, `email`, `order_date`, `phone_number`, `status`, `total_money`, `customer_id`) VALUES
+(2, 'olaha', 'HD001', 'thong@gmail.com', NULL, '0368445234', 'Đang giao', 720, 3),
+(3, 'Mỹ Đình', 'HD0012', 'huuthong251099@gmail.com', NULL, '0368443774', 'Đang giao', 1714, 1),
+(4, 'hola - doha -quatar', 'HD0013', 'thongvhph13968@fpt.edu.vn', NULL, '0368445234', 'Chờ xác nhận', 2307, 5),
+(5, 'brazil', 'HD0014', 'thong@gmail.com', NULL, '0368445234', 'Đang giao', 1418, 3),
+(6, 'vietnamese', 'HD0015', 'thong@gmail.com', NULL, '0368445234', 'Chờ xác nhận', 1817, 3),
+(7, 'china', 'HD0016', 'thong@gmail.com', NULL, '0368445234', 'Đang giao', 2693, 3),
+(8, 'pháp', 'HD0017', 'thong@gmail.com', NULL, '0368445234', 'Chờ xác nhận', 1470, 3),
+(9, 'nga - mỹ - tho', 'HD0018', 'thong@gmail.com', NULL, '0368445234', 'Đang giao', 2005, 3),
+(10, '10 đỉm', 'HD0019', 'thongvhph13968@fpt.edu.vn', NULL, '0368445234', 'Chờ xác nhận', 1864, 5),
+(11, 'khgfkhdg_sjgfaklh', 'HD00110', 'thongvhph13968@fpt.edu.vn', NULL, '0368445234', 'Chờ xác nhận', 1129, 5),
+(12, 'none', 'HD00111', 'huuthong251099@gmail.com', NULL, '0368443774', 'Đang giao', 1817, 1),
+(13, 'siuuuuuuuuuuu', 'HD00112', 'huuthong251099@gmail.com', NULL, '0368443774', 'Đang giao', 3008, 1),
+(14, 'hola ga mo', 'HD00113', 'huuthong251099@gmail.com', NULL, '0368443774', 'Chờ xác nhận', 1744, 1),
+(15, 'ho ha no ba', 'HD00114', 'huuthong251099@gmail.com', NULL, '0368443774', 'Hủy đơn', 1864, 1),
+(16, 'no-rra-báha', 'HD00115', 'thongvhph13968@fpt.edu.vn', NULL, '0368445234', 'Chờ xác nhận', 1129, 5),
+(17, 'nguyên xá', 'HD00116', 'chanhday0106@gmail.com', NULL, '0368445234', 'Chờ xác nhận', 2693, 6),
+(18, 'Nguyên xó', 'HD00117', 'chanhday0106@gmail.com', NULL, '0368445234', 'Chờ xác nhận', 4115, 6),
+(19, 'no adress', 'HD00118', 'changtom010603@gmail.com', NULL, '0368445234', 'Hủy đơn', 1380, 7),
+(20, 'sdgdhdhf', 'HD00119', 'changtom010603@gmail.com', NULL, '0368445234', 'Đang giao', 7442, 7);
 
 -- --------------------------------------------------------
 
@@ -210,19 +282,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `customer_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `products`
